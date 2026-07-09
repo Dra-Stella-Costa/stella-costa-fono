@@ -1,7 +1,7 @@
 # State
 
 **Last Updated:** 2026-07-09
-**Current Work:** M1 Fundação implementada e verificada (loop F1: 0 FAIL, ver verify-report.md). Próximo: git init + deploy Vercel, provisionar Supabase (aplicar migration 0001 com e-mail real da Stella), aprovação da identidade visual (D2), então M2 (landing-page).
+**Current Work:** M1 Fundação implementada e verificada (loop F1: 0 FAIL). Repo `Dra-Stella-Costa/stella-costa-fono` publicado; Supabase provisionado com migration 0001 aplicada e RLS testado ponta a ponta (CHK-160..164 PASS, incl. CHK-162 com usuário autenticado não-Stella). Próximo: deploy Vercel, aprovação da identidade visual (D2), então M2 (landing-page).
 
 ---
 
@@ -45,6 +45,13 @@
 **Impact:** Bloqueia go-live e Search Console definitivo; não bloqueia dev (preview Vercel).
 **Workaround:** Deploy em subdomínio vercel.app durante desenvolvimento.
 **Resolution:** Decidir entre fonostellacosta.com.br / stellacostafono.com.br e registrar.
+
+### B-004: Limpeza pós-teste de RLS no Supabase
+
+**Discovered:** 2026-07-09
+**Impact:** "Confirm email" está DESATIVADO no Auth (foi desligado para viabilizar o teste CHK-162). Deixar assim em produção permite cadastro sem verificação de e-mail.
+**Workaround:** Nenhum — precisa ser revertido antes do go-live.
+**Resolution:** Leonardo religar "Confirm email" e deletar os usuários de teste `comercial.servicoaki+rlstest@gmail.com` e `comercial.servicoaki+rls2@gmail.com`.
 
 ### B-003: Free tier Cal.com não validado (D5)
 
