@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import FotoArcoDePipa from "@/components/FotoArcoDePipa";
 import OndaDeVoz from "@/components/OndaDeVoz";
 import { whatsappLink } from "@/lib/site";
 
@@ -66,13 +67,11 @@ export default function Home() {
           <OndaDeVoz className="h-8 w-16" cor="sol" />
         </div>
 
-        {/*
-          TODO (D3): foto institucional da Stella (moldura "arco de pipa", manual §04).
-          Placeholder sem <img> até a imagem definitiva ser aprovada.
-        */}
-        <div
-          aria-hidden="true"
-          className="aspect-4/5 w-full rounded-b-3xl rounded-t-full border-2 border-dashed border-sol-500 bg-areia"
+        <FotoArcoDePipa
+          src="/imagens/stella-institucional.jpg"
+          alt="Stella Costa, fonoaudióloga infantil, sorrindo sentada no tapete da sala de atendimento infantil, ao lado de uma mesinha com letras móveis e materiais de terapia de fala"
+          priority
+          className="mx-auto w-full max-w-sm lg:max-w-none"
         />
       </div>
     </section>
