@@ -1,6 +1,5 @@
 -- Fundação: schema + Row Level Security (spec .specs/features/fundacao)
--- ATENÇÃO antes de aplicar: substituir o e-mail placeholder abaixo pelo
--- e-mail real da Stella no Supabase Auth (RF-11 — restrição por e-mail).
+-- RF-11: escrita restrita ao e-mail da Stella no Supabase Auth.
 
 -- E-mail autorizado a escrever (função única para facilitar troca futura)
 create or replace function public.is_stella()
@@ -8,8 +7,7 @@ returns boolean
 language sql
 stable
 as $$
-  -- TODO: trocar pelo e-mail real da Stella antes de aplicar a migration
-  select coalesce(auth.jwt() ->> 'email', '') = 'stella@example.com';
+  select coalesce(auth.jwt() ->> 'email', '') = 'drastellacosta@gmail.com';
 $$;
 
 -- ---------------------------------------------------------------------------
