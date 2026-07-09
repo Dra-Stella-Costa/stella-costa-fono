@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/*
+ * Tokens da identidade visual (D2) — fonte de verdade: docs/identidade-visual.md
+ * Nenhuma cor/fonte deve ser usada fora destes tokens.
+ */
+@theme {
+  /* Paleta principal — verde-água acolhedor (saúde, calma) */
+  --color-brand-50: #f0fafa;
+  --color-brand-100: #d9f2f2;
+  --color-brand-200: #b3e4e4;
+  --color-brand-300: #7fcfd0;
+  --color-brand-400: #4ab5b7;
+  --color-brand-500: #2b9a9c;
+  --color-brand-600: #217e81;
+  --color-brand-700: #1e6567;
+  --color-brand-800: #1d5152;
+  --color-brand-900: #1b4344;
+
+  /* Acento — coral quente (energia infantil, CTAs secundários) */
+  --color-accent-100: #ffe8e1;
+  --color-accent-300: #ffb4a1;
+  --color-accent-400: #ff8a70;
+  --color-accent-500: #f4694b;
+  --color-accent-600: #e05236;
+
+  /* WhatsApp (uso exclusivo nos CTAs de conversa) */
+  --color-whatsapp: #25d366;
+  --color-whatsapp-dark: #1ebe5b;
+
+  /* Tipografia */
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+}
