@@ -21,6 +21,20 @@
 **Trade-off:** Risco de no-show (R1, severidade alta).
 **Impact:** Lembretes automáticos do Cal.com obrigatórios; pagamento online vira prioridade V2 se no-show >30%.
 
+### AD-004: H1 da marca, palavras-chave no H2 (2026-07-09)
+
+**Decision:** O H1 do hero é "Toda criança tem uma voz. Vamos soltar a sua?" (Manual de Identidade v2.0 §07). As palavras-chave de SEO ("Fonoaudióloga Infantil", "São Gabriel do Oeste") ficam no primeiro H2, no `<title>` e na meta description.
+**Reason:** Conflito entre o PRD (CHK-011 exigia keywords no H1) e o brandbook. A frase da marca carrega a conversão emocional; o title tag já ancora a busca.
+**Trade-off:** H1 sem keyword exata é um sinal de SEO um pouco mais fraco.
+**Impact:** CHK-011 emendado no checklist e no `verify.mjs` para aceitar H1 ou primeiro H2. Reavaliar se o ranking para "fonoaudióloga infantil São Gabriel do Oeste" não subir em 3 meses (meta O2).
+
+### AD-005: Identidade visual v2.0 aplicada (2026-07-09)
+
+**Decision:** Paleta Coral/Petróleo/Sol/Creme + Baloo 2/Figtree, conforme Manual de Identidade Visual v2.0 (jul/2026). Resolve D2.
+**Reason:** O brandbook chegou depois da fundação; a paleta provisória (verde-água + Nunito) foi descartada.
+**Trade-off:** Retrabalho de todos os componentes do layout base.
+**Impact:** Tokens em `app/globals.css`; símbolo e grafismos reconstruídos em SVG (`components/Pipa.tsx`, `components/OndaDeVoz.tsx`) até os assets oficiais do designer chegarem.
+
 ### AD-003: Roadmap em 4 milestones (2026-07-09)
 
 **Decision:** M1 Fundação → M2 Conversão (landing + teleconsulta + analytics) → M3 Conteúdo (blog + painel) → M4 Lançamento.

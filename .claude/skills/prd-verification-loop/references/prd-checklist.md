@@ -28,7 +28,7 @@ apenas que NÃO foram implementados às custas do escopo (R4).
 | ID | Tipo | Verificação |
 |----|------|-------------|
 | CHK-010 | AUTO | `/` responde 200 |
-| CHK-011 | AUTO | H1 da home contém "Fonoaudióloga Infantil" (ou "Fonoaudiologia Infantil") + "São Gabriel do Oeste" |
+| CHK-011 | AUTO | Hero da home contém "Fonoaudióloga Infantil" (ou "Fonoaudiologia Infantil") + "São Gabriel do Oeste" no **H1 ou no primeiro H2**. Emenda de 2026-07-09: o Manual de Identidade v2.0 (§07) define o H1 como "Toda criança tem uma voz. Vamos soltar a sua?"; as palavras-chave ficam no H2, no `<title>` e na meta description |
 | CHK-012 | AUTO | Existe `<img>`/`next/image` com alt referenciando Stella no hero |
 | CHK-013 | AUTO | Link `wa.me` ou `api.whatsapp.com` presente no HTML do hero (primeira dobra estrutural) |
 | CHK-014 | MANUAL | Botão WhatsApp visível **sem rolar** em viewport 390×844 (verificação visual/screenshot) |

@@ -30,6 +30,14 @@ export default function Home() {
             <span className="text-coral-500">Vamos soltar a sua?</span>
           </h1>
 
+          {/*
+            H2 carrega as palavras-chave do PRD (US-01): o H1 é a frase da marca
+            (manual §07) e as keywords vivem aqui, no title e na meta description.
+          */}
+          <h2 className="font-display text-h3 font-bold text-petroleo-500">
+            Fonoaudióloga Infantil em São Gabriel do Oeste e teleconsulta em todo o Brasil
+          </h2>
+
           {/* TODO (D3): texto final revisado com a Stella */}
           <p className="medida-leitura text-corpo text-grafite">
             Avaliação e terapia de fala e linguagem com quem entende de infância. Graduada pela USP,

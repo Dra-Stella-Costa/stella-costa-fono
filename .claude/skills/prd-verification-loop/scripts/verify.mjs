@@ -95,10 +95,15 @@ async function blocoA(home) {
   add("CHK-010", "US-01 home 200", status === 200 ? PASS : FAIL, `GET / → ${status}`);
   if (status !== 200) return;
 
+  // Decisão 2026-07-09: o H1 é a frase da marca (manual §07) e as palavras-chave
+  // do PRD vivem no primeiro H2 do hero. Aceita keywords em H1 OU nesse H2.
   const h1 = (body.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i) || [])[1] || "";
-  const h1txt = strip(h1);
-  const okH1 = /fonoaudi[oó]log/i.test(h1txt) && /infantil/i.test(h1txt) && /s[ãa]o gabriel do oeste/i.test(h1txt);
-  add("CHK-011", "US-01 H1", okH1 ? PASS : FAIL, `H1: "${h1txt.trim().slice(0, 120)}"`);
+  const h2 = (body.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i) || [])[1] || "";
+  const h1txt = strip(h1), h2txt = strip(h2);
+  const temKeywords = (t) => /fonoaudi[oó]log/i.test(t) && /infantil/i.test(t) && /s[ãa]o gabriel do oeste/i.test(t);
+  const okH1 = temKeywords(h1txt) || temKeywords(h2txt);
+  add("CHK-011", "US-01 palavras-chave em H1/H2", okH1 ? PASS : FAIL,
+    `H1: "${h1txt.trim().slice(0, 60)}" | H2: "${h2txt.trim().slice(0, 80)}"`);
 
   const text = strip(body);
   add("CHK-013", "US-01 WhatsApp no HTML", /wa\.me|api\.whatsapp\.com/i.test(body) ? PASS : FAIL, "link wa.me " + (/wa\.me/i.test(body) ? "presente" : "ausente"));
