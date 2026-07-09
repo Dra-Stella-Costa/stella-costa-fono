@@ -1,7 +1,7 @@
 # State
 
 **Last Updated:** 2026-07-09
-**Current Work:** M1 Fundação implementada e verificada (loop F1: 0 FAIL). Repo `Dra-Stella-Costa/stella-costa-fono` publicado; Supabase provisionado com migration 0001 aplicada e RLS testado ponta a ponta (CHK-160..164 PASS, incl. CHK-162 com usuário autenticado não-Stella). Próximo: deploy Vercel, aprovação da identidade visual (D2), então M2 (landing-page).
+**Current Work:** M1 concluído. Site no ar em https://stella-costa-fono.vercel.app (Vercel Hobby, conta leo123-pixel, repo conectado com deploy automático). Supabase com RLS testado; identidade v2.0 aplicada. Próximo: M2 → feature `landing-page`.
 
 ---
 
@@ -52,6 +52,13 @@
 **Impact:** Bloqueia M4 (lançamento) e textos finais de landing/teleconsulta; não bloqueia desenvolvimento (usar placeholders).
 **Workaround:** Desenvolver com conteúdo placeholder marcado com TODO.
 **Resolution:** Leonardo coletar com Stella: sobre, FAQ (≥6), ≥3 depoimentos autorizados, indicações/limitações e valores da teleconsulta.
+
+### B-005: Repositório público exige disciplina com segredos
+
+**Discovered:** 2026-07-09
+**Impact:** `Dra-Stella-Costa/stella-costa-fono` é público (exigência do plano Hobby da Vercel para repos de organização). Qualquer segredo commitado fica exposto para sempre no histórico.
+**Workaround:** `.env*` no .gitignore; variáveis vivem no painel da Vercel.
+**Resolution:** Regra permanente — nunca commitar `service_role` key, senha ou dado de paciente. A anon key é pública por design; quem protege o banco é o RLS.
 
 ### B-002: Domínio não registrado (D1)
 

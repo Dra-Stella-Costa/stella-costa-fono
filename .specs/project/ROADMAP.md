@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M1 — Fundação
-**Status:** In Progress (código pronto e verificado; pendências manuais: Supabase, Vercel, aprovação D2)
+**Current Milestone:** M2 — Conversão
+**Status:** M1 concluído em 2026-07-09 (deploy em https://stella-costa-fono.vercel.app, Supabase com RLS testado, identidade v2.0 aplicada). Próximo: landing-page.
 
 ---
 
@@ -12,7 +12,12 @@
 
 ### Features
 
-**fundacao** - IN PROGRESS (2026-07-09: app + layout + 404 + sitemap/robots + tokens implementados, loop F1 com 0 FAIL; falta provisionar Supabase, git+Vercel e aprovação da identidade)
+**fundacao** - DONE (2026-07-09)
+
+- Deploy: https://stella-costa-fono.vercel.app · repo `Dra-Stella-Costa/stella-costa-fono` (público) conectado, deploy automático por commit, HTTPS + HSTS
+- Supabase `odanxowwlxijkugpfxhv`: migration 0001 aplicada, RLS testado (CHK-160..164 PASS)
+- Identidade visual v2.0 aplicada (D2 resolvido) + foto institucional no hero
+- Loop F1: 0 FAIL. Pendências que migram para M4: número real do WhatsApp, CRFa, favicon, SVGs oficiais do logo
 
 - Setup Next.js (App Router) + TypeScript + Tailwind, deploy Vercel
 - Identidade visual: paleta, tipografia, tokens no Tailwind (resolve D2)
