@@ -34,7 +34,7 @@ async function get(path) {
   }
 }
 
-function* walk(dir, skip = ["node_modules", ".next", ".git", "dist", "out", ".claude", ".specs"]) {
+function* walk(dir, skip = ["node_modules", ".next", ".git", "dist", "out", ".claude", ".specs", "verify-report.md"]) {
   for (const name of readdirSync(dir)) {
     if (skip.includes(name)) continue;
     const p = join(dir, name);

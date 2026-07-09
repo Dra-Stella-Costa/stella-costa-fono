@@ -1,23 +1,30 @@
 import Link from "next/link";
+import Pipa from "@/components/Pipa";
 import { whatsappLink } from "@/lib/site";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-brand-100 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-areia bg-creme/90 backdrop-blur">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
-        <Link href="/" className="flex items-baseline gap-2">
-          <span className="text-lg font-extrabold text-brand-700">Stella Costa</span>
-          <span className="hidden text-sm font-semibold text-brand-500 sm:inline">
-            Fonoaudiologia Infantil
+        <Link href="/" className="flex items-center gap-2">
+          <Pipa className="h-9 w-7" />
+          <span className="leading-tight">
+            <span className="block font-display text-lg font-extrabold text-petroleo-600">
+              Stella Costa
+            </span>
+            <span className="block text-eyebrow font-bold uppercase tracking-[0.14em] text-coral-500">
+              Fonoaudiologia Infantil
+            </span>
           </span>
         </Link>
+        {/* Secundário (contorno Petróleo): o primário Coral é único por tela e vive no hero */}
         <a
           href={whatsappLink("header")}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-full bg-brand-600 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-brand-700"
+          className="rounded-full border-2 border-petroleo-600 px-5 py-2 font-display text-sm font-bold text-petroleo-600 transition-all hover:-translate-y-0.5 hover:border-petroleo-700 hover:text-petroleo-700 focus-visible:outline-4 focus-visible:outline-petroleo-300"
         >
-          Agendar avaliação
+          Falar no WhatsApp
         </a>
       </div>
     </header>

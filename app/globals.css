@@ -1,33 +1,64 @@
 @import "tailwindcss";
 
 /*
- * Tokens da identidade visual (D2) — fonte de verdade: docs/identidade-visual.md
- * Nenhuma cor/fonte deve ser usada fora destes tokens.
+ * Tokens da identidade visual — Manual de Identidade Visual v2.0 (jul/2026).
+ * Fonte de verdade: docs/identidade-visual.md. Nenhuma cor/fonte fora destes tokens.
+ * Proporção alvo por tela: Creme 55% · Petróleo 25% · Coral 12% · Sol 8%.
  */
 @theme {
-  /* Paleta principal — verde-água acolhedor (saúde, calma) */
-  --color-brand-50: #f0fafa;
-  --color-brand-100: #d9f2f2;
-  --color-brand-200: #b3e4e4;
-  --color-brand-300: #7fcfd0;
-  --color-brand-400: #4ab5b7;
-  --color-brand-500: #2b9a9c;
-  --color-brand-600: #217e81;
-  --color-brand-700: #1e6567;
-  --color-brand-800: #1d5152;
-  --color-brand-900: #1b4344;
+  /* Coral Fala — botões primários, links, destaque de palavra em títulos, símbolo */
+  --color-coral-100: #ffe4e0;
+  --color-coral-300: #ffa79d;
+  --color-coral-500: #ff6f61;
+  --color-coral-600: #e8503f;
+  --color-coral-700: #c53d2e;
 
-  /* Acento — coral quente (energia infantil, CTAs secundários) */
-  --color-accent-100: #ffe8e1;
-  --color-accent-300: #ffb4a1;
-  --color-accent-400: #ff8a70;
-  --color-accent-500: #f4694b;
-  --color-accent-600: #e05236;
+  /* Petróleo Confiança — títulos, rodapé, fundos institucionais */
+  --color-petroleo-100: #dbe8f1;
+  --color-petroleo-300: #7ba6c4;
+  --color-petroleo-500: #2a6d9c;
+  --color-petroleo-600: #17527b;
+  --color-petroleo-700: #103b59;
 
-  /* WhatsApp (uso exclusivo nos CTAs de conversa) */
+  /* Sol de Quintal — acentos, doodles, hovers. Nunca em texto < 20px */
+  --color-sol-100: #fff2d1;
+  --color-sol-300: #ffd786;
+  --color-sol-500: #ffc145;
+  --color-sol-600: #e0a12a;
+
+  /* Neutros quentes — nunca branco puro, nunca cinza frio */
+  --color-creme: #fdf8f2;
+  --color-areia: #f4eadd;
+  --color-grafite: #2e2a26;
+
+  /* Semânticas — só feedback de sistema */
+  --color-sucesso: #3e8e5a;
+  --color-erro: #d64545;
+
+  /* WhatsApp (ícone oficial do canal) */
   --color-whatsapp: #25d366;
-  --color-whatsapp-dark: #1ebe5b;
 
-  /* Tipografia */
-  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  /* Tipografia: Baloo 2 nos títulos, Figtree no texto */
+  --font-display: var(--font-baloo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+
+  /* Escala tipográfica · base 17px · razão ~1.33 */
+  --text-display: clamp(2.25rem, 1.5rem + 3vw, 3.375rem);
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.005em;
+  --text-h2: clamp(1.6875rem, 1.3rem + 1.6vw, 2.3125rem);
+  --text-h2--line-height: 1.15;
+  --text-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.5625rem);
+  --text-h3--line-height: 1.25;
+  --text-corpo: 1.0625rem;
+  --text-corpo--line-height: 1.65;
+  --text-apoio: 0.90625rem;
+  --text-apoio--line-height: 1.6;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--letter-spacing: 0.14em;
+}
+
+/* Corpo de texto nunca passa de ~62 caracteres por linha (manual, §03) */
+.medida-leitura {
+  max-width: 62ch;
 }
