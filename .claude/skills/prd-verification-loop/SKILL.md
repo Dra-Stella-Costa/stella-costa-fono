@@ -49,18 +49,36 @@ Regras do loop:
 
 ## Como executar uma iteração
 
+Sempre a partir da **raiz do repositório** (não de dentro da pasta da skill).
+
 ```bash
 # 1. Build de produção (build quebrado = FAIL geral, pare aqui)
 npm run build
 
 # 2. Subir servidor de produção em background
-npm run start &   # porta 3000 por padrão
+npm run start   # porta 3000 por padrão
 
-# 3. Rodar o verificador
-node scripts/verify.mjs --base http://localhost:3000 --repo .
+# 3. Rodar o verificador (path canônico via npm script)
+npm run verify:local
+# ou contra produção:
+npm run verify:prod
+# ou só até a fase atual (ex.: landing, sem exigir blog/teleconsulta):
+npm run verify:f2 -- --base http://localhost:3000
+# path absoluto se preferir:
+# node .claude/skills/prd-verification-loop/scripts/verify.mjs --base http://localhost:3000 --repo .
 
-# 4. Ler o relatório gerado em verify-report.md
+# 4. Ler o relatório gerado em verify-report.md (raiz do repo)
 ```
+
+### Flags do script
+
+| Flag | Default | Efeito |
+|------|---------|--------|
+| `--base` | `http://localhost:3000` | URL do site sob teste |
+| `--repo` | `.` | Raiz do filesystem a varrer |
+| `--phase` | `F6` | Limita o escopo: checks de fases posteriores saem como **N/A** (não bloqueiam) |
+
+Fases: `F1` fundação · `F2` landing · `F3` blog/admin · `F4` teleconsulta · `F5` medição · `F6` tudo.
 
 O script cobre os itens `AUTO`. Para itens `SEMI` (ex.: RLS no Supabase,
 evento de analytics disparando), siga as instruções por item no checklist —

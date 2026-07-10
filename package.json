@@ -5,7 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "verify": "node .claude/skills/prd-verification-loop/scripts/verify.mjs --repo .",
+    "verify:build": "node .claude/skills/prd-verification-loop/scripts/verify.mjs --repo . --build",
+    "verify:local": "node .claude/skills/prd-verification-loop/scripts/verify.mjs --repo . --base http://localhost:3000",
+    "verify:f2": "node .claude/skills/prd-verification-loop/scripts/verify.mjs --repo . --phase F2",
+    "verify:prod": "node .claude/skills/prd-verification-loop/scripts/verify.mjs --repo . --base https://stella-costa-fono.vercel.app"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.3.2",
