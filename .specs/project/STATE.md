@@ -46,6 +46,20 @@
 
 ## Active Blockers
 
+### AD-007: Teleconsulta publicada sem o conteúdo clínico (2026-07-09)
+
+**Decision:** `/teleconsulta` vai a produção com o embed do Cal.com funcionando, mas as listas de formato, indicações e limitações ficam ocultas até a revisão da Stella (D4). Em produção o texto é factual ("atendimento por videochamada, confirmação por e-mail").
+**Reason:** O Cal.com foi configurado (`stella-viwuxq/teleconsulta`) e o botão do hero caía no WhatsApp. Publicar a página destrava a conversão; publicar as listas colocaria afirmações clínicas não revisadas sob a assinatura profissional dela.
+**Trade-off:** CHK-100 (headings de formato/indicações/limitações) fica FAIL em produção até D4.
+**Impact:** Ao receber os textos, virar `CONTEUDO_VALIDADO = true` em `lib/landing-content.ts`.
+
+### B-007: `vercel env add` gravou strings vazias
+
+**Discovered:** 2026-07-09
+**Impact:** Variáveis na Vercel podem estar vazias. Com `??`, string vazia é valor válido — os links viravam `wa.me/?text=` e o embed apontaria para `cal.com/`. Falha silenciosa que mataria o KPI primário.
+**Workaround:** Código passou a usar `||` nos fallbacks, então valores vazios caem no padrão correto.
+**Resolution:** Conferir no painel da Vercel (Settings → Environment Variables) se `NEXT_PUBLIC_WHATSAPP_NUMBER`, `NEXT_PUBLIC_CALCOM_LINK`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` têm valor. A anon key **não** tem padrão no código e será necessária no M3 (blog/admin).
+
 ### AD-006: Rascunho gated por variável de ambiente (2026-07-09)
 
 **Decision:** Sinais de alerta, depoimentos e FAQ só renderizam com `NEXT_PUBLIC_MOSTRAR_RASCUNHO=1`, presente apenas no `.env.local`.
