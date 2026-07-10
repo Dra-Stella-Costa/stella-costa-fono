@@ -1,9 +1,9 @@
 # Blog Público — Tasks
 
 **Design**: `.specs/features/blog-publico/design.md`
-**Status**: Done (2026-07-10) — T1–T12, T14 e T15 concluídos; do T13 falta só o artigo de teste
-(envs confirmadas na Vercel; INSERT depende do SQL editor do Supabase — CLI sem link).
-Com o artigo de teste no banco, re-verificar CHK-111..114 (hoje WARN).
+**Status**: Done (2026-07-10) — T1–T15 concluídos. Artigo de teste inserido por Leonardo via SQL
+editor; ISR trouxe o artigo sem redeploy e CHK-110..115 passaram em produção (schema Article,
+OG, CTA, 404). Falta só apagar o artigo de teste (`delete from articles where slug = 'artigo-de-teste'`).
 
 ---
 

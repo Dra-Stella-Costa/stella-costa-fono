@@ -1,7 +1,7 @@
 # State
 
 **Last Updated:** 2026-07-10
-**Current Work:** `blog-publico` implementado e verificado (loop F3: 0 FAIL de código; CHK-111..114 aguardam artigo de teste — INSERT precisa do SQL editor do Supabase, CLI sem link). `analytics-seo` fica por último (decisão Umami vs Vercel Pro pendente). Próximo: M3 → `painel-admin` (que também destrava a revalidação on-demand e o artigo de teste pelo próprio painel).
+**Current Work:** `blog-publico` DONE e validado em produção (2026-07-10): artigo de teste via SQL editor, ISR trouxe sem redeploy, CHK-110..115 PASS (falta apagar o artigo de teste). FAILs remanescentes do F3 são todos conhecidos: CRFa + conteúdo gated (B-001/AD-006) e /admin inexistente. `analytics-seo` fica por último (Umami vs Vercel Pro pendente). Próximo: M3 → `painel-admin`.
 
 ---
 
