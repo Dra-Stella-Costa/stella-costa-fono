@@ -43,7 +43,12 @@
 - Seções: sobre (credenciais/CRFa), sinais de alerta por faixa etária, depoimentos, FAQ, localização/mapa
 - Schema LocalBusiness + FAQPage, Open Graph, LCP <2,5s
 
-**teleconsulta** - PLANNED
+**teleconsulta** - DONE em estrutura, BLOQUEADA por conteúdo (2026-07-09)
+
+- `/teleconsulta`: formato, indicações, limitações (rascunho D4), CTA âncora para agendamento
+- `CalcomEmbed` isolado (mitigação R3) com fallback: link direto + WhatsApp
+- Rota responde 404 em produção e fica fora do sitemap até D4 (spec US-07 AC2)
+- Pendente: conteúdo clínico da Stella, link real do evento (`NEXT_PUBLIC_CALCOM_LINK`), validação do free tier (D5) e agendamento de teste ponta a ponta (CHK-104)
 
 - Página /teleconsulta com formato, indicações e limitações clínicas
 - Cal.com embutido (evento configurado: duração, buffer, antecedência)

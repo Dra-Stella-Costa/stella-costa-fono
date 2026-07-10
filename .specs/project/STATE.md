@@ -56,9 +56,16 @@
 ### B-001: Conteúdos dependem da Stella (D3/D4)
 
 **Discovered:** 2026-07-08
-**Impact:** Bloqueia M4 (lançamento) e textos finais de landing/teleconsulta; não bloqueia desenvolvimento (usar placeholders).
-**Workaround:** Desenvolver com conteúdo placeholder marcado com TODO.
-**Resolution:** Leonardo coletar com Stella: sobre, FAQ (≥6), ≥3 depoimentos autorizados, indicações/limitações e valores da teleconsulta.
+**Impact:** Bloqueia M4 (lançamento). Em produção hoje: sinais/depoimentos/FAQ não renderizam e `/teleconsulta` responde 404 (gate AD-006).
+**Workaround:** Rascunho renderiza só localmente, atrás de `NEXT_PUBLIC_MOSTRAR_RASCUNHO`.
+**Resolution:** Leonardo coletar com Stella: **número do CRFa** (bloqueia CHK-023/204 e o CFFa), FAQ (≥6), ≥3 depoimentos autorizados com consentimento arquivado, sinais de alerta revisados, indicações/limitações/duração/valor da teleconsulta. Depois: `CONTEUDO_VALIDADO = true` em `lib/landing-content.ts`.
+
+### B-006: WhatsApp com nono dígito inferido
+
+**Discovered:** 2026-07-09
+**Impact:** Se o número estiver errado, todos os CTAs do site levam a um contato inválido — o KPI primário morre silenciosamente.
+**Workaround:** Nenhum.
+**Resolution:** Leonardo informou `+55 67 9311-2092` (8 dígitos após o DDD). Assumido `99311-2092` com base no cartão de visita do brandbook. **Confirmar enviando uma mensagem de teste pelo botão do site antes do lançamento.**
 
 ### B-005: Repositório público exige disciplina com segredos
 
