@@ -9,7 +9,17 @@ import { whatsappLink } from "@/lib/site";
  */
 // `||` e não `??`: variável vazia cai no padrão (ver comentário em lib/site.ts).
 const CALCOM_LINK = process.env.NEXT_PUBLIC_CALCOM_LINK || "stella-viwuxq/teleconsulta";
-const CALCOM_URL = `https://cal.com/${CALCOM_LINK}`;
+
+/**
+ * Aceita tanto `usuario/evento` quanto a URL completa colada do painel do Cal.com.
+ * Sem isso, uma URL completa gerava `https://cal.com/https://cal.com/...` (404).
+ */
+function calcomUrl(link: string): string {
+  const slug = link.trim().replace(/^https?:\/\/(?:www\.)?cal\.com\//i, "").replace(/^\/+|\/+$/g, "");
+  return `https://cal.com/${slug}`;
+}
+
+const CALCOM_URL = calcomUrl(CALCOM_LINK);
 
 export default function CalcomEmbed() {
   return (
