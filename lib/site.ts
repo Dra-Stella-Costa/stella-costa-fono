@@ -4,9 +4,9 @@ export const SITE_NAME = "Stella Costa — Fonoaudiologia Infantil";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://stella-costa-fono.vercel.app";
 
-// TODO: substituir pelo número real da Stella (formato internacional, só dígitos)
+// (67) 99311-2092 — confirmado por Leonardo em 2026-07-09
 export const WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "5567999999999";
+  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "5567993112092";
 
 // TODO (D3): preencher com o registro real da Stella antes do lançamento
 export const CRFA_NUMBER: string | null = null;

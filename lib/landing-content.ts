@@ -40,6 +40,8 @@ export const MARCADORES_PLACEHOLDER = [
   "Fomos bem recebidos e sentimos confiança na avaliação",
   "cerca de 40 a 50 minutos",
   "Posso emitir recibo para reembolso",
+  "Materiais e atividades enviados após cada encontro",
+  "Casos que dependem de exame físico da musculatura orofacial",
 ];
 
 export type FaixaEtaria = {

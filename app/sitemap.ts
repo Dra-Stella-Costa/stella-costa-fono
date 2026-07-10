@@ -1,10 +1,9 @@
 import type { MetadataRoute } from "next";
+import { mostrarRascunho } from "@/lib/landing-content";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // /teleconsulta e /blog (com artigos publicados) entram aqui quando as
-  // rotas existirem (M2/M3) — o verificador acusa a ausência até lá.
-  return [
+  const rotas: MetadataRoute.Sitemap = [
     {
       url: SITE_URL,
       lastModified: new Date(),
@@ -12,4 +11,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
   ];
+
+  // /teleconsulta só entra no sitemap quando estiver publicada (D4) — indexar uma
+  // rota que responde 404 é pior do que não indexá-la.
+  if (mostrarRascunho()) {
+    rotas.push({
+      url: `${SITE_URL}/teleconsulta`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    });
+  }
+
+  // /blog e artigos entram em M3.
+  return rotas;
 }
