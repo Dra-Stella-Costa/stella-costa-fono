@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import FotoArcoDePipa from "@/components/FotoArcoDePipa";
 import OndaDeVoz from "@/components/OndaDeVoz";
+import Depoimentos from "@/components/landing/Depoimentos";
+import Faq from "@/components/landing/Faq";
+import Localizacao from "@/components/landing/Localizacao";
+import SchemaLocalBusiness from "@/components/landing/SchemaLocalBusiness";
+import SinaisDeAlerta from "@/components/landing/SinaisDeAlerta";
+import Sobre from "@/components/landing/Sobre";
+import { mostrarRascunho } from "@/lib/landing-content";
 import { whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -18,8 +25,14 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  // Sinais, depoimentos e FAQ dependem de conteúdo que só a Stella pode aprovar
+  // (D3). Sem NEXT_PUBLIC_MOSTRAR_RASCUNHO — que não existe na Vercel — o rascunho
+  // nunca chega a produção, mesmo com deploy automático.
+  const rascunho = mostrarRascunho();
+
   return (
-    <section className="relative overflow-hidden">
+    <>
+      <section className="relative overflow-hidden">
       <div className="mx-auto grid max-w-5xl gap-10 px-4 py-14 sm:py-20 lg:grid-cols-[1.1fr_1fr] lg:items-center">
         <div className="space-y-6">
           <p className="text-eyebrow font-bold uppercase tracking-[0.14em] text-coral-500">
@@ -73,7 +86,15 @@ export default function Home() {
           priority
           className="mx-auto w-full max-w-sm lg:max-w-none"
         />
-      </div>
-    </section>
+        </div>
+      </section>
+
+      <Sobre />
+      {rascunho && <SinaisDeAlerta />}
+      {rascunho && <Depoimentos />}
+      {rascunho && <Faq />}
+      <Localizacao />
+      <SchemaLocalBusiness />
+    </>
   );
 }

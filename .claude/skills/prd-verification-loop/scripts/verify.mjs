@@ -103,10 +103,11 @@ const strip = (html) =>
 
 /** Conta depoimentos: cards com nome abreviado "Nome X." ou blockquotes. */
 function countDepoimentos(html) {
+  // Preferir a seção ancorada por id — heurísticas gulosas engolem header/hero
+  // e geram falso positivo de <img> e de nome completo (CHK-041/042).
   const section =
-    (html.match(/<section[^>]*>[\s\S]*?depoiment[\s\S]*?<\/section>/i) ||
-      html.match(/id=["']depoiment[^"']*["'][\s\S]{0,8000}/i) ||
-      html.match(/depoiment[\s\S]{0,5000}/i) ||
+    (html.match(/<section[^>]*id=["']depoimentos["'][\s\S]*?<\/section>/i) ||
+      html.match(/<section[^>]*>(?:(?!<section)[\s\S])*?depoiment(?:(?!<section)[\s\S])*?<\/section>/i) ||
       [""])[0];
   if (!section || section.length < 20) return { n: 0, section: "" };
   const abbreviated = [...section.matchAll(/\b[A-ZÁÉÍÓÚÂÊÔÃÕÇ][a-záéíóúâêôãõç]+(?:\s+[A-ZÁÉÍÓÚÂÊÔÃÕÇ]\.)+/g)];
@@ -289,21 +290,22 @@ async function blocoA(home) {
     "F2"
   );
 
-  // CHK-042: nomes abreviados (heurística)
-  const fullNames = depoSection
-    ? [...depoSection.matchAll(/\b[A-ZÁÉÍÓÚ][a-záéíóú]+\s+[A-ZÁÉÍÓÚ][a-záéíóú]{3,}\b/g)].filter(
-        (m) => !/São Gabriel|Oeste|Brasil|WhatsApp/i.test(m[0])
-      )
+  // CHK-042: nomes abreviados. Analisa só o campo do autor ("Nome S. · Cidade"),
+  // senão o nome da cidade (ex.: "Campo Grande") vira falso positivo.
+  // React insere `<!-- -->` entre expressões JSX; remover antes de casar o padrão.
+  const depoLimpo = depoSection.replace(/<!--[\s\S]*?-->/g, "");
+  const autores = depoLimpo
+    ? [...depoLimpo.matchAll(/>\s*([^<>·]{2,40}?)\s*·\s*[^<>]+</g)].map((m) => m[1].trim())
     : [];
-  const abbreviatedOk = depoSection
-    ? /\b[A-ZÁÉÍÓÚÂÊÔÃÕÇ][a-záéíóúâêôãõç]+\s+[A-ZÁÉÍÓÚÂÊÔÃÕÇ]\./.test(depoSection)
-    : false;
+  const abreviado = /^[A-ZÁÉÍÓÚÂÊÔÃÕÇ][a-záéíóúâêôãõç]+(?:\s+[A-ZÁÉÍÓÚÂÊÔÃÕÇ]\.)+$/;
+  const fullNames = autores.filter((a) => !abreviado.test(a)).map((a) => ({ 0: a }));
+  const abbreviatedOk = autores.length > 0 && fullNames.length === 0;
   add(
     "CHK-042",
     "US-04 nomes abreviados",
     !depoSection
       ? WARN
-      : abbreviatedOk && fullNames.length === 0
+      : abbreviatedOk
         ? PASS
         : fullNames.length
           ? FAIL
@@ -311,7 +313,7 @@ async function blocoA(home) {
     !depoSection
       ? "seção ausente — reavaliar com depoimentos"
       : fullNames.length
-        ? "possível nome completo: " + fullNames.slice(0, 3).map((m) => m[0]).join(", ")
+        ? "autor sem abreviação: " + fullNames.slice(0, 3).map((m) => m[0]).join(", ")
         : abbreviatedOk
           ? "padrão Nome X. detectado"
           : "sem padrão de abreviação claro — revisão manual",
@@ -675,9 +677,8 @@ async function blocoG(pages) {
   try {
     const src = readFileSync(join(REPO, "lib/landing-content.ts"), "utf8");
     validado = /CONTEUDO_VALIDADO\s*=\s*true/.test(src);
-    marcadores = [...src.matchAll(/^\s*"([^"]{20,})",\s*$/gm)]
-      .map((m) => m[1])
-      .filter((s) => src.slice(0, src.indexOf(s)).includes("MARCADORES_PLACEHOLDER"));
+    const bloco = (src.match(/MARCADORES_PLACEHOLDER[^=]*=\s*\[([\s\S]*?)\]/) || [])[1] || "";
+    marcadores = [...bloco.matchAll(/"([^"]+)"/g)].map((m) => m[1]);
   } catch {}
 
   const servidos = [];
@@ -686,6 +687,7 @@ async function blocoG(pages) {
     const texto = strip(body);
     for (const m of marcadores) if (texto.includes(m)) servidos.push(`${path}: "${m.slice(0, 40)}…"`);
   }
+  const resumo = servidos.slice(0, 3).join(" | ") + (servidos.length > 3 ? ` | +${servidos.length - 3}` : "");
 
   if (validado && servidos.length === 0) {
     add("CHK-043", "US-04/US-05 conteúdo real da Stella", PASS, "CONTEUDO_VALIDADO=true e nenhum marcador de rascunho servido", "F2");
@@ -694,8 +696,8 @@ async function blocoG(pages) {
       "rascunho existe em lib/landing-content.ts mas NÃO é servido (seções ainda não renderizadas) — aguardando D3", "F2");
   } else {
     add("CHK-043", "US-04/US-05 conteúdo real da Stella", FAIL,
-      `conteúdo placeholder servido em ${IS_PROD ? "PRODUÇÃO" : "localhost"}: ` + servidos.join(" | ") +
-      " — depoimentos inventados (LGPD) e afirmações clínicas/comerciais não validadas (D3)", "F2");
+      `${servidos.length} marcador(es) de rascunho servidos em ${IS_PROD ? "PRODUÇÃO — BLOQUEIA LANÇAMENTO" : "localhost (esperado em dev)"}: ` +
+      resumo + " — depoimentos inventados (LGPD) e afirmações clínicas/comerciais não validadas (D3)", "F2");
   }
 
   const home = pages["/"];

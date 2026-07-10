@@ -17,6 +17,20 @@
 export const CONTEUDO_VALIDADO = false;
 
 /**
+ * Decide se as seções alimentadas por rascunho podem renderizar.
+ *
+ * Em produção (Vercel) `NEXT_PUBLIC_MOSTRAR_RASCUNHO` NÃO existe, então o rascunho
+ * nunca é servido — mesmo com deploy automático a cada push. Localmente a variável
+ * está no `.env.local` (fora do git), permitindo desenvolver e verificar as seções.
+ *
+ * Quando `CONTEUDO_VALIDADO` virar `true`, o conteúdo passa a renderizar em produção
+ * e esta função pode ser removida junto com a variável.
+ */
+export function mostrarRascunho(): boolean {
+  return CONTEUDO_VALIDADO || process.env.NEXT_PUBLIC_MOSTRAR_RASCUNHO === "1";
+}
+
+/**
  * Trechos únicos usados pelo verificador para detectar rascunho servido em produção.
  * Se editar os textos, atualize esta lista.
  */
