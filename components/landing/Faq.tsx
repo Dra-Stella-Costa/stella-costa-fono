@@ -1,4 +1,5 @@
-import { FAQS } from "@/lib/landing-content";
+import { FAQS, mostrarRascunho } from "@/lib/landing-content";
+import { supabase } from "@/lib/supabase";
 import { whatsappLink } from "@/lib/site";
 
 /**
@@ -6,11 +7,23 @@ import { whatsappLink } from "@/lib/site";
  * continua funcional sem JavaScript (edge case da spec).
  * O JSON-LD abaixo espelha exatamente as perguntas do DOM (CHK-051).
  */
-export default function Faq() {
+export default async function Faq() {
+  // AD-008: FAQ cadastrada no painel = validada pela Stella → produção.
+  const { data } = await supabase
+    .from("faqs")
+    .select("question, answer")
+    .eq("published", true)
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+
+  // Banco vazio: comportamento antigo — rascunho só local (AD-006)
+  const faqs = data && data.length > 0 ? data : mostrarRascunho() ? FAQS : [];
+  if (faqs.length === 0) return null;
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: FAQS.map((f) => ({
+    mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.question,
       acceptedAnswer: { "@type": "Answer", text: f.answer },
@@ -24,9 +37,8 @@ export default function Faq() {
           Perguntas <span className="text-coral-500">frequentes</span>
         </h2>
 
-        {/* TODO (D3): perguntas e respostas a validar com a Stella */}
         <div className="divide-y divide-areia border-y border-areia">
-          {FAQS.map((f) => (
+          {faqs.map((f) => (
             <details key={f.question} className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-h3 font-bold text-petroleo-600 focus-visible:outline-4 focus-visible:outline-petroleo-300">
                 {f.question}

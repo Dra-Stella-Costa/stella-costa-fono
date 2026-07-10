@@ -1,7 +1,7 @@
 # Roadmap
 
 **Current Milestone:** M3 — Conteúdo (analytics-seo do M2 adiado por decisão de 2026-07-10: Umami vs Vercel Pro pendente)
-**Status:** M2 estrutural no ar. blog-publico implementado em 2026-07-10. Próximo: painel-admin.
+**Status:** blog-publico e painel-admin implementados em 2026-07-10. M3 completo em código; falta operacional (usuária da Stella no Auth) e conteúdo. Próximo: analytics-seo (M2, decisão pendente) ou M4.
 
 ---
 
@@ -79,7 +79,12 @@
 - Meta tags, Open Graph e schema Article por post; CTA WhatsApp ao final
 - SSG/ISR com revalidação ao publicar; artigos no sitemap
 
-**painel-admin** - PLANNED
+**painel-admin** - DONE (2026-07-10), pendências operacionais no dashboard (criar usuária, signup off, Confirm email)
+
+- /admin: middleware + layout guard (STELLA_EMAIL) + RLS como autoridade (42501 testado); login, recuperação e atualização de senha
+- CRUD completo com Tiptap (HTML compatível com o blog), upload com resize no browser (WebP 1600px), autosave localStorage
+- Slug automático/editável com bloqueio de colisão, SEO + preview de compartilhamento; publicar → `revalidatePath` (site reflete na hora)
+- Depoimentos/FAQ pelo painel → landing lê do banco (AD-008); lembrete LGPD no form; FAQ reordenável
 
 - Login Supabase Auth restrito ao e-mail da Stella, recuperação de senha
 - CRUD de artigos: rascunho/publicado, editar, despublicar, excluir

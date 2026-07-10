@@ -19,6 +19,12 @@ export const CITY = "São Gabriel do Oeste/MS";
 export const PROFESSIONAL_NAME = "Stella Costa";
 
 /**
+ * Único e-mail com acesso ao painel — espelho de `is_stella()` na migration 0001.
+ * Trocar o e-mail exige mudar NOS DOIS lugares (aqui é UX; lá é a segurança).
+ */
+export const STELLA_EMAIL = "drastellacosta@gmail.com";
+
+/**
  * TODO (D3): endereço completo do consultório.
  * Enquanto pendente, usamos a cidade para SEO local e mapa.
  */

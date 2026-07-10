@@ -1,9 +1,27 @@
 import OndaDeVoz from "@/components/OndaDeVoz";
-import { DEPOIMENTOS } from "@/lib/landing-content";
+import { DEPOIMENTOS, mostrarRascunho } from "@/lib/landing-content";
+import { supabase } from "@/lib/supabase";
 
-export default function Depoimentos() {
+export default async function Depoimentos() {
+  // AD-008: depoimento cadastrado no painel = validado pela Stella (com o
+  // lembrete LGPD no formulário) → pode renderizar em produção.
+  const { data } = await supabase
+    .from("testimonials")
+    .select("author_name, city, quote")
+    .eq("published", true)
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+
+  // Banco vazio: vale o comportamento antigo — rascunho só local (AD-006)
+  const depoimentos =
+    data && data.length > 0
+      ? data.map((d) => ({ author: d.author_name, city: d.city, quote: d.quote }))
+      : mostrarRascunho()
+        ? DEPOIMENTOS
+        : [];
+
   // Spec US-04.3: nunca renderizar a seção vazia.
-  if (DEPOIMENTOS.length === 0) return null;
+  if (depoimentos.length === 0) return null;
 
   return (
     <section id="depoimentos" className="bg-areia/50">
@@ -17,14 +35,15 @@ export default function Depoimentos() {
 
         {/* Sem imagens: LGPD proíbe foto de menores (CHK-041) */}
         <ul className="grid gap-5 md:grid-cols-3">
-          {DEPOIMENTOS.map((d) => (
+          {depoimentos.map((d) => (
             <li
-              key={d.author}
+              key={`${d.author}-${d.quote.slice(0, 20)}`}
               className="relative rounded-2xl rounded-bl-none border border-areia bg-creme p-5"
             >
               <blockquote className="text-corpo italic text-grafite">“{d.quote}”</blockquote>
               <p className="mt-4 text-apoio font-semibold text-petroleo-600">
-                {d.author} · {d.city}
+                {d.author}
+                {d.city ? ` · ${d.city}` : ""}
               </p>
             </li>
           ))}

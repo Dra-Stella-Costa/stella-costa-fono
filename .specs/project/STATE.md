@@ -1,11 +1,18 @@
 # State
 
 **Last Updated:** 2026-07-10
-**Current Work:** `blog-publico` DONE e validado em produção (2026-07-10): artigo de teste via SQL editor, ISR trouxe sem redeploy, CHK-110..115 PASS (falta apagar o artigo de teste). FAILs remanescentes do F3 são todos conhecidos: CRFa + conteúdo gated (B-001/AD-006) e /admin inexistente. `analytics-seo` fica por último (Umami vs Vercel Pro pendente). Próximo: M3 → `painel-admin`.
+**Current Work:** M3 completo em código (2026-07-10): `blog-publico` e `painel-admin` DONE e verificados (F3: 3 FAIL restantes = CRFa ×2 + rascunho local, todos conteúdo). Artigo de teste ficou no ar como exemplo, por decisão do Leonardo. Operacional pendente no dashboard Supabase: criar usuária `drastellacosta@gmail.com`, desabilitar signup, religar "Confirm email", apagar usuários de teste (B-004). Depois: teste ponta a ponta com a Stella (celular, <15 min). `analytics-seo` por último (Umami vs Vercel Pro pendente).
 
 ---
 
 ## Recent Decisions (Last 60 days)
+
+### AD-008: Depoimentos/FAQ do banco renderizam em produção (2026-07-10)
+
+**Decision:** `Depoimentos.tsx` e `Faq.tsx` leem do Supabase (linhas `published = true`). Conteúdo cadastrado pelo painel-admin é considerado validado pela Stella (o form de depoimento traz o lembrete LGPD de consentimento) e renderiza em produção. Com o banco vazio, vale o comportamento antigo (rascunho gated, AD-006).
+**Reason:** RF-17 — Stella atualiza a landing sem deploy; cadastro via painel É a validação dela.
+**Trade-off:** O gate `NEXT_PUBLIC_MOSTRAR_RASCUNHO` fica restrito ao conteúdo estático (sinais de alerta e listas clínicas da teleconsulta — D3/D4 seguem valendo para eles).
+**Impact:** Home com `revalidate = 60` + `revalidatePath("/")` nas actions do painel; CHK-040/050/051 passam a depender de linhas reais no banco em produção.
 
 ### AD-001: Stack Next.js + Supabase + Cal.com + Vercel (2026-07-08)
 

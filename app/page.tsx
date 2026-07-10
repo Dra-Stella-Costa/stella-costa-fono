@@ -11,6 +11,10 @@ import Sobre from "@/components/landing/Sobre";
 import { mostrarRascunho } from "@/lib/landing-content";
 import { whatsappLink } from "@/lib/site";
 
+// Depoimentos/FAQ vêm do Supabase: mudanças no painel refletem em ≤60s
+// (as actions do painel também revalidam "/" na hora)
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Fonoaudióloga Infantil em São Gabriel do Oeste",
   description:
@@ -90,9 +94,11 @@ export default function Home() {
       </section>
 
       <Sobre />
+      {/* Sinais seguem gated (conteúdo clínico, AD-006). Depoimentos e FAQ
+          decidem sozinhos: banco (validado via painel, AD-008) ou rascunho local. */}
       {rascunho && <SinaisDeAlerta />}
-      {rascunho && <Depoimentos />}
-      {rascunho && <Faq />}
+      <Depoimentos />
+      <Faq />
       <Localizacao />
       <SchemaLocalBusiness />
     </>
