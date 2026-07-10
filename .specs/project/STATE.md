@@ -46,6 +46,13 @@
 
 ## Active Blockers
 
+### AD-006: Rascunho gated por variável de ambiente (2026-07-09)
+
+**Decision:** Sinais de alerta, depoimentos e FAQ só renderizam com `NEXT_PUBLIC_MOSTRAR_RASCUNHO=1`, presente apenas no `.env.local`.
+**Reason:** O deploy é automático a cada push. Sem o gate, um commit publicaria depoimentos inventados (LGPD) e afirmações clínicas/comerciais não validadas com a assinatura profissional da Stella.
+**Trade-off:** A home em produção fica curta (hero, sobre, localização) até o D3.
+**Impact:** Ao receber o conteúdo real, virar `CONTEUDO_VALIDADO = true` em `lib/landing-content.ts` e remover a variável. CHK-043 é o guard automatizado.
+
 ### B-001: Conteúdos dependem da Stella (D3/D4)
 
 **Discovered:** 2026-07-08

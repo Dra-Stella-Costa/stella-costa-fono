@@ -33,7 +33,11 @@
 
 ### Features
 
-**landing-page** - PLANNED
+**landing-page** - DONE em estrutura, BLOQUEADA por conteúdo (2026-07-09)
+
+- Seções: hero, sobre (USP/pós/CRFa), sinais por faixa etária, depoimentos (balão, sem foto), FAQ (`<details>` + schema FAQPage), localização com mapa lazy, schema MedicalBusiness
+- Loop F2: 34 PASS / 3 FAIL — os 3 dependem da Stella (CRFa em CHK-023/204; conteúdo real em CHK-043)
+- Sinais, depoimentos e FAQ ficam atrás de `NEXT_PUBLIC_MOSTRAR_RASCUNHO` (só local). Produção serve apenas conteúdo factual até D3
 
 - Hero com "Fonoaudióloga Infantil" + cidade, foto, CTA WhatsApp above the fold
 - Seções: sobre (credenciais/CRFa), sinais de alerta por faixa etária, depoimentos, FAQ, localização/mapa
