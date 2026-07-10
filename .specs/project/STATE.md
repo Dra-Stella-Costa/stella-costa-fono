@@ -53,12 +53,19 @@
 **Trade-off:** CHK-100 (headings de formato/indicações/limitações) fica FAIL em produção até D4.
 **Impact:** Ao receber os textos, virar `CONTEUDO_VALIDADO = true` em `lib/landing-content.ts`.
 
-### B-007: `vercel env add` gravou strings vazias
+### L-003: `vercel env pull` mascara valores (RESOLVIDO, era falso alarme)
 
 **Discovered:** 2026-07-09
-**Impact:** Variáveis na Vercel podem estar vazias. Com `??`, string vazia é valor válido — os links viravam `wa.me/?text=` e o embed apontaria para `cal.com/`. Falha silenciosa que mataria o KPI primário.
-**Workaround:** Código passou a usar `||` nos fallbacks, então valores vazios caem no padrão correto.
-**Resolution:** Conferir no painel da Vercel (Settings → Environment Variables) se `NEXT_PUBLIC_WHATSAPP_NUMBER`, `NEXT_PUBLIC_CALCOM_LINK`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` têm valor. A anon key **não** tem padrão no código e será necessária no M3 (blog/admin).
+**Contexto:** `vercel env pull` devolve `NOME=""` para todas as variáveis, inclusive as que têm valor. Isso levou ao diagnóstico errado de que a CLI gravava strings vazias.
+**Verdade:** As variáveis estavam corretas. Para saber o valor real de uma `NEXT_PUBLIC_*`, inspecione o HTML servido em produção (elas são inlined no build).
+**Sequela útil:** os fallbacks passaram de `??` para `||` — variável definida como string vazia caía como valor válido e quebraria `wa.me/?text=` silenciosamente.
+
+### L-004: Link do Cal.com deve ser normalizado
+
+**Discovered:** 2026-07-09
+**Contexto:** `NEXT_PUBLIC_CALCOM_LINK` guarda a URL completa; o código prefixava `https://cal.com/` de novo, gerando `https://cal.com/https://cal.com/...` e o 404 do Cal.com dentro do iframe.
+**Lição:** o Cal.com responde **HTTP 200 na página de erro** (soft 404) — `curl -o /dev/null -w %{http_code}` não detecta. Verificar o `<title>` do HTML.
+**Resolução:** `calcomUrl()` em `components/CalcomEmbed.tsx` aceita URL completa ou `usuario/evento`.
 
 ### AD-006: Rascunho gated por variável de ambiente (2026-07-09)
 
