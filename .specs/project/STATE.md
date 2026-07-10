@@ -1,7 +1,7 @@
 # State
 
-**Last Updated:** 2026-07-09
-**Current Work:** M1 concluído. Site no ar em https://stella-costa-fono.vercel.app (Vercel Hobby, conta leo123-pixel, repo conectado com deploy automático). Supabase com RLS testado; identidade v2.0 aplicada. Próximo: M2 → feature `landing-page`.
+**Last Updated:** 2026-07-10
+**Current Work:** `blog-publico` implementado e verificado (loop F3: 0 FAIL de código; CHK-111..114 aguardam artigo de teste — INSERT precisa do SQL editor do Supabase, CLI sem link). `analytics-seo` fica por último (decisão Umami vs Vercel Pro pendente). Próximo: M3 → `painel-admin` (que também destrava a revalidação on-demand e o artigo de teste pelo próprio painel).
 
 ---
 
@@ -81,12 +81,11 @@
 **Workaround:** Rascunho renderiza só localmente, atrás de `NEXT_PUBLIC_MOSTRAR_RASCUNHO`.
 **Resolution:** Leonardo coletar com Stella: **número do CRFa** (bloqueia CHK-023/204 e o CFFa), FAQ (≥6), ≥3 depoimentos autorizados com consentimento arquivado, sinais de alerta revisados, indicações/limitações/duração/valor da teleconsulta. Depois: `CONTEUDO_VALIDADO = true` em `lib/landing-content.ts`.
 
-### B-006: WhatsApp com nono dígito inferido
+### B-006: WhatsApp com nono dígito inferido (RESOLVIDO 2026-07-10)
 
 **Discovered:** 2026-07-09
 **Impact:** Se o número estiver errado, todos os CTAs do site levam a um contato inválido — o KPI primário morre silenciosamente.
-**Workaround:** Nenhum.
-**Resolution:** Leonardo informou `+55 67 9311-2092` (8 dígitos após o DDD). Assumido `99311-2092` com base no cartão de visita do brandbook. **Confirmar enviando uma mensagem de teste pelo botão do site antes do lançamento.**
+**Resolution:** Leonardo confirmou em 2026-07-10 que `5567993112092` está correto (nono dígito incluído). Recomendação que permanece: enviar uma mensagem de teste pelo botão do site antes do lançamento.
 
 ### B-005: Repositório público exige disciplina com segredos
 

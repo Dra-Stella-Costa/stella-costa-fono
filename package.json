@@ -13,7 +13,9 @@
     "verify:prod": "node .claude/skills/prd-verification-loop/scripts/verify.mjs --repo . --base https://stella-costa-fono.vercel.app"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.110.2",
     "@tailwindcss/postcss": "^4.3.2",
+    "@tailwindcss/typography": "^0.5.20",
     "@types/node": "^26.1.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
@@ -22,7 +24,11 @@
     "postcss": "^8.5.16",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "sanitize-html": "^2.17.5",
     "tailwindcss": "^4.3.2",
     "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/sanitize-html": "^2.16.1"
   }
 }

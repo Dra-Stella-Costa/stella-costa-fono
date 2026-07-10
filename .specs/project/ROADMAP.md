@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M2 — Conversão
-**Status:** M1 concluído em 2026-07-09 (deploy em https://stella-costa-fono.vercel.app, Supabase com RLS testado, identidade v2.0 aplicada). Próximo: landing-page.
+**Current Milestone:** M3 — Conteúdo (analytics-seo do M2 adiado por decisão de 2026-07-10: Umami vs Vercel Pro pendente)
+**Status:** M2 estrutural no ar. blog-publico implementado em 2026-07-10. Próximo: painel-admin.
 
 ---
 
@@ -69,7 +69,11 @@
 
 ### Features
 
-**blog-publico** - PLANNED
+**blog-publico** - DONE (2026-07-10), validação final pendente de artigo de teste
+
+- /blog (listagem, estado vazio amigável) e /blog/[slug] (ISR 60s, `dynamicParams`, conteúdo sanitizado)
+- Meta/OG/canônica por artigo, schema Article, CTA WhatsApp origem `blog:[slug]`, compartilhar (Web Share + fallback)
+- Sitemap com artigos; rascunho → 404 via RLS; loop F3: 0 FAIL de código (CHK-111..114 aguardam 1º artigo — WARN)
 
 - /blog com listagem e páginas individuais (URL amigável)
 - Meta tags, Open Graph e schema Article por post; CTA WhatsApp ao final

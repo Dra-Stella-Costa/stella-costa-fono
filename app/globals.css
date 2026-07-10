@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* Tipografia do corpo dos artigos do blog (classe `prose`) */
+@plugin "@tailwindcss/typography";
 
 /*
  * Tokens da identidade visual — Manual de Identidade Visual v2.0 (jul/2026).
