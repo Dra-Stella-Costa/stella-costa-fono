@@ -2,11 +2,13 @@ export const SITE_NAME = "Stella Costa — Fonoaudiologia Infantil";
 
 // D1 pendente: trocar pelo domínio definitivo quando registrado
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://stella-costa-fono.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://stella-costa-fono.vercel.app";
 
-// (67) 99311-2092 — confirmado por Leonardo em 2026-07-09
+// (67) 99311-2092 — confirmado por Leonardo em 2026-07-09.
+// `||` e não `??`: variável definida como string vazia deve cair no padrão,
+// senão os links viram `wa.me/?text=...` e toda a conversão quebra em silêncio.
 export const WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "5567993112092";
+  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5567993112092";
 
 // TODO (D3): preencher com o registro real da Stella antes do lançamento
 export const CRFA_NUMBER: string | null = null;

@@ -68,27 +68,13 @@ export default function Home() {
             >
               Falar no WhatsApp
             </a>
-            {/*
-              Secundário (contorno Petróleo). Enquanto /teleconsulta não está
-              publicada (D4), o CTA cai no WhatsApp em vez de apontar para um 404.
-            */}
-            {rascunho ? (
-              <Link
-                href="/teleconsulta"
-                className="rounded-full border-2 border-petroleo-600 px-6 py-3 font-display font-bold text-petroleo-600 transition-all hover:-translate-y-0.5 hover:border-petroleo-700 hover:text-petroleo-700 focus-visible:outline-4 focus-visible:outline-petroleo-300"
-              >
-                Agendar teleconsulta
-              </Link>
-            ) : (
-              <a
-                href={whatsappLink("hero-teleconsulta")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border-2 border-petroleo-600 px-6 py-3 font-display font-bold text-petroleo-600 transition-all hover:-translate-y-0.5 hover:border-petroleo-700 hover:text-petroleo-700 focus-visible:outline-4 focus-visible:outline-petroleo-300"
-              >
-                Agendar teleconsulta
-              </a>
-            )}
+            {/* Secundário (contorno Petróleo) */}
+            <Link
+              href="/teleconsulta"
+              className="rounded-full border-2 border-petroleo-600 px-6 py-3 font-display font-bold text-petroleo-600 transition-all hover:-translate-y-0.5 hover:border-petroleo-700 hover:text-petroleo-700 focus-visible:outline-4 focus-visible:outline-petroleo-300"
+            >
+              Agendar teleconsulta
+            </Link>
           </div>
 
           <OndaDeVoz className="h-8 w-16" cor="sol" />

@@ -7,7 +7,8 @@ import { whatsappLink } from "@/lib/site";
  *
  * D5 pendente: validar se o free tier cobre a configuração da Stella (1 tipo de evento).
  */
-const CALCOM_LINK = process.env.NEXT_PUBLIC_CALCOM_LINK ?? "stella-costa/teleconsulta";
+// `||` e não `??`: variável vazia cai no padrão (ver comentário em lib/site.ts).
+const CALCOM_LINK = process.env.NEXT_PUBLIC_CALCOM_LINK || "stella-viwuxq/teleconsulta";
 const CALCOM_URL = `https://cal.com/${CALCOM_LINK}`;
 
 export default function CalcomEmbed() {

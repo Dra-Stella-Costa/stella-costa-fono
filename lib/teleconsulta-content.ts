@@ -4,9 +4,11 @@
  * ⚠ RASCUNHO NÃO VALIDADO (D4). É conteúdo CLÍNICO: só a Stella (CRFa) pode definir
  * o que é atendível a distância, o que não é, duração e valor.
  *
- * A spec (US-07, AC2) é explícita: com placeholder, a página NÃO vai a produção.
- * Por isso `app/teleconsulta/page.tsx` responde 404 em produção enquanto
- * `CONTEUDO_VALIDADO` for `false` — ver `mostrarRascunho()`.
+ * Decisão 2026-07-09 (AD-007): a página é publicada com o agendamento funcionando,
+ * mas as três listas abaixo só renderizam quando `mostrarRascunho()` é verdadeiro.
+ * Em produção, nenhuma afirmação clínica não revisada é exibida — o visitante é
+ * convidado a perguntar no WhatsApp. Isso honra a spec US-07 AC2 (placeholder não
+ * vai a produção) sem travar a conversão, agora que o Cal.com está configurado.
  */
 
 export const FORMATO: string[] = [

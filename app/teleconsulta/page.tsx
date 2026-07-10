@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import CalcomEmbed from "@/components/CalcomEmbed";
 import OndaDeVoz from "@/components/OndaDeVoz";
 import { mostrarRascunho } from "@/lib/landing-content";
@@ -25,9 +24,10 @@ const BLOCOS = [
 ];
 
 export default function Teleconsulta() {
-  // Spec US-07 AC2: com conteúdo clínico em rascunho, a página não vai a produção.
-  // Sem NEXT_PUBLIC_MOSTRAR_RASCUNHO (ausente na Vercel), a rota responde 404.
-  if (!mostrarRascunho()) notFound();
+  // AD-007: a página é pública (o agendamento funciona), mas as listas clínicas
+  // — formato, indicações, limitações — só aparecem depois da revisão da Stella (D4).
+  // Nenhuma afirmação clínica não revisada chega ao visitante.
+  const conteudoClinico = mostrarRascunho();
 
   return (
     <>
@@ -40,8 +40,9 @@ export default function Teleconsulta() {
             Fonoaudiologia infantil <span className="text-coral-500">onde você estiver</span>
           </h1>
           <p className="medida-leitura text-corpo text-grafite">
-            Antes de agendar, entenda como funciona, para quais situações a teleconsulta é indicada
-            e, principalmente, o que ela não resolve a distância.
+            {conteudoClinico
+              ? "Antes de agendar, entenda como funciona, para quais situações a teleconsulta é indicada e, principalmente, o que ela não resolve a distância."
+              : "O atendimento acontece por videochamada, com horário escolhido por você. Escolha abaixo o melhor dia — a confirmação chega por e-mail com o link da chamada."}
           </p>
           <a
             href="#agendar"
@@ -54,20 +55,21 @@ export default function Teleconsulta() {
       </section>
 
       <section className="mx-auto max-w-3xl space-y-10 px-4 py-14">
-        {/* TODO (D4): todo o conteúdo clínico abaixo aguarda definição da Stella */}
-        {BLOCOS.map((bloco) => (
-          <div key={bloco.id} id={bloco.id} className="space-y-3">
-            <h2 className="font-display text-h2 font-bold text-petroleo-600">{bloco.titulo}</h2>
-            <ul className="medida-leitura space-y-2 text-corpo text-grafite">
-              {bloco.itens.map((item) => (
-                <li key={item} className="flex gap-2">
-                  <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-sol-500" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        {/* TODO (D4): conteúdo clínico aguarda revisão da Stella; oculto até lá */}
+        {conteudoClinico &&
+          BLOCOS.map((bloco) => (
+            <div key={bloco.id} id={bloco.id} className="space-y-3">
+              <h2 className="font-display text-h2 font-bold text-petroleo-600">{bloco.titulo}</h2>
+              <ul className="medida-leitura space-y-2 text-corpo text-grafite">
+                {bloco.itens.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-sol-500" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
         {/* TODO (D4): duração e valor — a Stella define. Nenhum valor inventado aqui. */}
         <p className="medida-leitura text-apoio text-grafite">
