@@ -86,7 +86,7 @@
 **Discovered:** 2026-07-08
 **Impact:** Bloqueia M4 (lançamento). Em produção hoje: sinais/depoimentos/FAQ não renderizam e `/teleconsulta` responde 404 (gate AD-006).
 **Workaround:** Rascunho renderiza só localmente, atrás de `NEXT_PUBLIC_MOSTRAR_RASCUNHO`.
-**Resolution:** Leonardo coletar com Stella: **número do CRFa** (bloqueia CHK-023/204 e o CFFa), FAQ (≥6), ≥3 depoimentos autorizados com consentimento arquivado, sinais de alerta revisados, indicações/limitações/duração/valor da teleconsulta. Depois: `CONTEUDO_VALIDADO = true` em `lib/landing-content.ts`.
+**Resolution:** Leonardo coletar com Stella: ~~número do CRFa~~ (recebido 2026-10-14: `5-10320-6`, em `lib/site.ts`; destrava CHK-023/204), FAQ (≥6), ≥3 depoimentos autorizados com consentimento arquivado, sinais de alerta revisados, indicações/limitações/duração/valor da teleconsulta. Depois: `CONTEUDO_VALIDADO = true` em `lib/landing-content.ts`.
 
 ### B-006: WhatsApp com nono dígito inferido (RESOLVIDO 2026-07-10)
 

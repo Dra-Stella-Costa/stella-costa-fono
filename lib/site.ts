@@ -10,8 +10,8 @@ export const SITE_URL =
 export const WHATSAPP_NUMBER =
   process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5567993112092";
 
-// TODO (D3): preencher com o registro real da Stella antes do lançamento
-export const CRFA_NUMBER: string | null = null;
+// Registro profissional da Stella (CRFa 5ª Região) — recebido em 2026-10-14.
+export const CRFA_NUMBER: string | null = "5-10320-6";
 
 export const CITY = "São Gabriel do Oeste/MS";
 
